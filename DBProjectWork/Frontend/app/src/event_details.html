@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>Event Results</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+
+        <!-- Font -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+        <link rel="stylesheet" href="fonts/beyond_the_mountains-webfont.css" type="text/css"/>
+
+        <!-- Stylesheets -->
+        <link href="plugin-frameworks/bootstrap.min.css" rel="stylesheet">
+        <link href="plugin-frameworks/swiper.css" rel="stylesheet">
+        <link href="fonts/ionicons.css" rel="stylesheet">
+        <link href="common/styles.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+<script>
+var app = angular.module("bookMySport", []);
+app.controller("eventDetailsController", function($scope) {
+    $scope.initEventDetails = function(){
+          $scope.event = {
+            id:1,
+            name: "Wrestlemania",
+            team1:{id:1,name:'John Cena'},
+            team2:{id:2,name:'Kane'},
+            stadium:{name:'PPG Paints Arena',latitude:1.1,longitude:1.2,location:'123 Street',city:'Pittsburgh',state:'PA',zip:"15206"},
+            event_date:Date.now()
+          };
+          $scope.seatTypeArr = ["Regular","VIP"];
+          $scope.ticket={
+            event:$scope.event.id
+          };
+          $scope.cart=[];
+    };
+    // END of init function
+  
+  $scope.addToCart = function(){
+    if($scope.ticket && $scope.ticket.event && $scope.ticket.typeOfSeat && (($scope.ticket.noOfAdults>=0 && $scope.ticket.noOfChildren>=0)|| (!$scope.ticket.noOfAdults || !$scope.ticket.noOfChildren)) && ($scope.ticket.noOfAdults>0 || $scope.ticket.noOfChildren>0)){
+        // $scope.cart.push(angular.copy($scope.ticket));
+        // $scope.ticket.noOfAdults = 0;
+        // $scope.ticket.noOfChildren = 0;
+        // $scope.ticket.typeOfSeat=null;
+        
+    }
+    else{
+        alert("Please enter proper parameters");
+    }
+  };
+});
+</script>
+
+<div class="row c_cloud_div" ng-app="bookMySport" ng-controller="eventDetailsController" ng-init="initEventDetails()">
+
+    <div class = "col-xs-12 col-md-12">
+        <div class="col-xs-12 col-md-12  c_concrete_div">
+            <!-- <div ng-repeat="event in events_list" class="event_ticket_div">
+                <div class="col-xs-12 col-sm-12 event_font">{{event.name}}</div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-5 col-md-5 col-lg-5 event_team_font">{{event.team1}}</div>
+                    <div class="col-sm-2 event_team_font">VS</div>
+                    <div class="col-xs-6 col-sm-5 col-md-5 col-lg-5 event_team_font">{{event.team2}}</div>    
+                </div>
+                <div class="col-xs-12 col-sm-12 event_font">At : <a href="http://maps.google.com/?q={{event.stadium.name + '' + event.stadium.city}}">{{event.stadium.name}}</a></div>
+                <div class="col-xs-12 col-sm-12 event_font">{{event.event_time | date:'yyyy-MMM-dd'}}</div>
+                {{event}}                
+            </div> -->
+            <div class="row">
+                <!-- EVENT NAME -->
+                <div class="col-sm-12" style="text-align: center;">
+                    <div class="col-sm-12">{{event.name}}</div>
+                    <div class="col-sm-12">Live at {{event.stadium.name}}</div>
+                    <div class="col-sm-12">{{event.event_date | date:'dd/MM/yyyy'}}</div>
+                    <div class="row">
+                        <div class="col-sm-5">{{event.team1.name}}</div>
+                        <div class="col-sm-2">VS</div>
+                        <div class="col-sm-5">{{event.team2.name}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <p >Select Type of Seat : </p>    
+                    </div>
+                    <div class="col-sm-2">
+                        <select ng-model="ticket.typeOfSeat" ng-options="x for x in seatTypeArr" >
+                    </select>    
+                    </div>
+                    
+                    
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <p >No of Adults : </p>    
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="number" ng-model="ticket.noOfAdults" name="noOfAdults">
+                    </div>
+                </div>
+                
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <p >No of Children : </p>    
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="number" ng-model="ticket.noOfChildren" name="noOfChildren">
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-2">
+                        <!-- <input type="button" ng-model="noOfChildren" name="addToCart"> -->
+                         <button ng-click="addToCart()" class="appButton">Add to cart</button> 
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- SCIPTS -->
+<script src="plugin-frameworks/jquery-3.2.1.min.js"></script>
+<script src="plugin-frameworks/bootstrap.min.js"></script>
+<script src="plugin-frameworks/swiper.js"></script>
+<script src="common/scripts.js"></script>
+</body>
+</html>

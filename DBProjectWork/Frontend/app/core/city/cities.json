@@ -1,0 +1,32 @@
+[
+    {
+        "id": "b", 
+        "imageUrl": "https://images.freeimages.com/images/large-previews/6d8/boston-1544430.jpg", 
+        "name": "Boston"
+    },
+    {
+        "id": "c", 
+        "imageUrl": "https://images.freeimages.com/images/large-previews/77f/chicago-1226883.jpg", 
+        "name": "Chicago"
+    },
+    {
+        "id": "la", 
+        "imageUrl": "https://images.freeimages.com/images/large-previews/d9a/downtown-los-angeles-1477704.jpg", 
+        "name": "Los Angeles"
+    },
+    {
+        "id": "nyc", 
+        "imageUrl": "https://images.freeimages.com/images/large-previews/a37/new-york-city-1451716.jpg", 
+        "name": "New York"
+    },
+    {
+        "id": "phl", 
+        "imageUrl": "https://images.freeimages.com/images/large-previews/834/philadelphia-cityscape-1218192.jpg", 
+        "name": "Philadelphia"
+    },
+    {
+        "id": "pgh", 
+        "imageUrl": "https://images.freeimages.com/images/large-previews/896/pittsburgh-skyline-1234686.jpg", 
+        "name": "Pittsburgh"
+    }
+]

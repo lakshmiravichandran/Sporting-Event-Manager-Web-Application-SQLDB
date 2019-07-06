@@ -1,0 +1,157 @@
+<section class="bg-7 h-300x main-slider pos-relative">
+    <div class="triangle-up pos-bottom"></div>
+        <div class="container h-100">
+            <div class="dplay-tbl">
+                <div class="dplay-tbl-cell center-text color-white pt-50">
+                    <h3 class="mt-30 mb-15">{{event.name}}</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="story-area left-text center-sm-text">
+        <div class="container">
+                <div class="row c_cloud_div" ng-init="initEventDetails()">
+
+    <div class = "col-xs-12 col-md-12">
+        <div class="col-xs-12 col-md-12  c_concrete_div" style="margin-top: 15px;margin-bottom: 15px;margin-left: 0px;">
+            <!-- <div ng-repeat="event in events_list" class="event_ticket_div">
+                <div class="col-xs-12 col-sm-12 event_font">{{event.name}}</div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-5 col-md-5 col-lg-5 event_team_font">{{event.team1}}</div>
+                    <div class="col-sm-2 event_team_font">VS</div>
+                    <div class="col-xs-6 col-sm-5 col-md-5 col-lg-5 event_team_font">{{event.team2}}</div>    
+                </div>
+                <div class="col-xs-12 col-sm-12 event_font">At : <a href="http://maps.google.com/?q={{event.stadium.name + '' + event.stadium.city}}">{{event.stadium.name}}</a></div>
+                <div class="col-xs-12 col-sm-12 event_font">{{event.event_time | date:'yyyy-MMM-dd'}}</div>
+                {{event}}                
+            </div> -->
+            <div class="row">
+                <!-- EVENT NAME -->
+                <div class="col-sm-12" style="text-align: center;margin-top: 40px;margin-bottom: 60px;">
+                    <div class="col-sm-12">{{event.name}}</div>
+                    <div class="col-sm-12">Live at {{event.stadium.name}}</div>
+                    <div class="col-sm-12">{{event.event_date | date:'dd/MM/yyyy'}}</div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-5">{{event.team1.name}}</div>
+                        <div class="col-sm-2">VS</div>
+                        <div class="col-sm-5">{{event.team2.name}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <p >Select Type of Seat : </p>    
+                    </div>
+                    <div class="col-sm-2">
+                        <select ng-model="ticket.typeOfSeat">
+                            <option ng-repeat="x in seatTypeArr" value="{{x.type}}">{{x.type}}</option>
+                        </select>
+                    </select>    
+                    </div>
+                    
+                    
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <p >No of Adults : </p>    
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="number" ng-model="ticket.noOfAdults" name="noOfAdults">
+                    </div>
+                </div>
+                
+                <div class="col-sm-12">
+                    <div class="col-sm-4">
+                        <p >No of Children : </p>    
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="number" ng-model="ticket.noOfChildren" name="noOfChildren">
+                    </div>
+                </div>
+
+                <div class="col-sm-12" style="margin-bottom:40px;">
+                    <div class="col-sm-2">
+                        <!-- <input type="button" ng-model="noOfChildren" name="addToCart"> -->
+                         <button ng-click="checkout()" class="appButton">Checkout</button> 
+                    </div>
+                </div>
+
+            </div>
+            <div class="row c_cloud_div" ng-if="isValidCheckout" ng-init="initCheckoutPage()">
+                <!-- EVENT NAME -->
+                <div class = "col-xs-12 col-md-12">
+        <div class="col-xs-12 col-md-12  c_concrete_div">
+            <h4>Your Ticket Details</h4>                    
+        </div>
+    <div>
+        <!-- <div class="row c_mazarine_div" >
+            <h5 class="col-sm-3">Event : {{booking.event}}</h5>
+            <h5 class="col-sm-3" ng-if="booking.noOfAdults">Adults : {{booking.noOfAdults}}</h5>
+            <h5 class="col-sm-3" ng-if="booking.noOfChildren">Children : {{booking.noOfChildren}}</h5>
+        </div> -->
+        <table style="font-size: 20px; margin: 20px 20px 20px 20px; background-color: #dddddd;">
+            <tr>
+                <th>Event name : </th>
+                <td>{{event.name}}</td>
+            </tr>
+            <tr>
+                <th>Type of Seat : &nbsp;</th>
+                <td>{{ticket.typeOfSeat}}</td>
+            </tr>
+            <tr ng-if="ticket.noOfAdults">
+                <th>No of Adults : </th>
+                <td>{{ticket.noOfAdults}}</td>
+            </tr>
+            <tr ng-if="ticket.noOfChildren">
+                <th>No of Children : &nbsp;</th>
+                <td>{{ticket.noOfChildren}}</td>
+            </tr>
+            <tr style="border: 1;">
+                <th style="border-top: 1px solid black;">Total : &nbsp;</th>
+                <td style="border-top: 1px solid black;">100</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-5" style="margin: 10px 10px;">
+            <label style="font-size: 18px">Card No. / Account No.</label>
+            <input class ="form-control" ng-model="cardNumber" type="number" name="">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1" style="margin: 10px 10px;">
+            <label style="font-size: 18px">Expiry Month</label>
+            <input class ="form-control" ng-model="cardMonth" type="number" name="" min="1" max="12">
+        </div>
+        <div class="col-sm-1" style="margin: 10px 10px;">
+            <label style="font-size: 18px">Expiry Year</label>
+            <input class ="form-control" ng-model="cardYear" type="number" name=""  min="18" max="35">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-1" style="margin: 10px 10px;">
+            <label style="font-size: 18px">CVV</label>
+            <input class ="form-control" ng-model="cardCvv" type="password" name="">
+        </div>
+    </div>
+
+    <div>
+        <button class="appButton" ng-click="pay()">
+            Complete Payment
+        </button>
+    </div>
+</div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+        </div><!-- container -->
+</section>

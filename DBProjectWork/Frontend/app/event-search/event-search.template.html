@@ -1,0 +1,51 @@
+<section class="bg-1 h-600x main-slider pos-relative">
+        <div class="triangle-up pos-bottom"></div>
+        <div class="container h-100">
+                <div class="dplay-tbl">
+                        <div class="dplay-tbl-cell-new center-text color-white">
+                                <form class="searchBox" name="searchForm" action="">
+                                        <input type="search" placeholder="Search here..." ng-model="searchText" required>
+                                        <button type="submit" ng-click="searchEvent(searchText)" ng-disabled="searchForm.$invalid">Search</button>
+                                </form> 
+                                <button class="btn-primaryc plr-25" ng-click="showAllEvents()"><b>SHOW ALL EVENTS</b></button>
+                        </div>
+                </div>
+        </div>
+</section>
+
+<section class="story-area left-text center-sm-text">
+        <div class="container">
+                <h3 style="text-align:center!important;">Search By ...</h3>
+                <div class="row">
+                        <div class="cityContainer">
+                                <h3>City</h3>
+                                <div class="col-sm-2" ng-repeat="city in cities">
+                                        <div class="card">
+                                                <!--a href="#!/events/map/{{city.id}}"-->
+                                                <!-- <a ng-click=searchEvent(city.id) style="cursor:pointer;"> -->
+                                                <a href="src/city_details.html?{{city.name}}">        
+                                                        <img style="height: 100px;" class="card-img-top" src="{{city.imageUrl}}" alt="Card image cap">
+                                                        <h5 class="card-title">{{city.name}}</h5>
+                                                </a>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+                <div class="row">
+                        <div>
+                                <h3>Sport</h3>
+                                <div class="col-sm-2" ng-repeat="sport in sports">
+                                        <div class="card">
+                                                <!--a href="#!/events/map/{{city.id}}"-->
+                                                <a ng-click=searchEvent(sport.id) style="cursor:pointer;">
+                                                        <img style="height: 100px;" class="card-img-top" src="{{sport.imageUrl}}"" alt="Card image cap">
+                                                        <h5 class="card-title">{{sport.name}}</h5>
+                                                </a>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+        </div>
+</section>
+
+

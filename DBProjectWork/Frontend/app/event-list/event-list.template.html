@@ -1,0 +1,61 @@
+<section class="bg-7 h-300x main-slider pos-relative">
+    <div class="triangle-up pos-bottom"></div>
+        <div class="container h-100">
+            <div class="dplay-tbl">
+                <div class="dplay-tbl-cell center-text color-white pt-50">
+                    <h3 class="mt-30 mb-15">Events</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="story-area left-text center-sm-text">
+    <div class="container">
+        <div class="row c_cloud_div" ng-init="eventListInit()">
+
+            <div class = "col-xs-4 col-md-2">
+                <div class="col-xs-12 col-md-10 c_concrete_div"  style="left: 15%;">
+                    <div class="row">
+                        <label class="col-sm-12" style="text-align: center; background-color: #535c68; color: #ffffff"> Filters </label>
+                        <p class="col-sm-12">City : </p>
+                        <label class="col-sm-12"><input type="radio" name="radgroup" value="pittsburgh"  ng-model="filter.city">Pittsburgh</label>
+                        <label class="col-sm-12"><input type="radio" name="radgroup" value="newYork"  ng-model="filter.city">New York</label>
+                        <label class="col-sm-12"><input type="radio" name="radgroup" value="philadelphia" ng-model="filter.city">Philadelphia</label>
+                        <label class="col-sm-12"><input type="radio" name="radgroup" value="losAngeles" ng-model="filter.city">Los Angeles</label>
+                        <label class="col-sm-12"><input type="radio" name="radgroup" value="boston" ng-model="filter.city">Boston</label>
+                        <label class="col-sm-12"><input type="radio" name="radgroup" value="chicago" ng-model="filter.city">Chicago</label>
+                        <br class="col-sm-12"/>
+                        <p class="col-sm-12">Sport : </p>
+                        <label class="col-sm-12"><input type="radio" name="radgroup" value="soccer" ng-model="filter.sport">Soccer</label>
+                        <label class="col-sm-12"><input type="radio" name="radgroup" value="baseball" ng-model="filter.sport">Baseball</label>
+                        <label class="col-sm-12"><input type="radio" name="radgroup" value="cricket" ng-model="filter.sport">Cricket</label>
+                        <label class="col-sm-12"><input type="radio" name="radgroup" value="basketball" ng-model="filter.sport">Basketball</label>
+                        <label class="col-sm-12"><input type="radio" name="radgroup" value="iceHockey" ng-model="filter.sport">Ice Hockey</label>
+                        <label class="col-sm-12"><input type="radio" name="radgroup" value="tennis" ng-model="filter.sport">Tennis</label>
+                        <br/>
+
+                        <div class="col-sm-12" style="text-align: center;">
+                            <button class="appButton" ng-click="getData()"> Apply </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class = "col-xs-8 col-md-10">
+                <div class="col-xs-12 col-md-11  c_concrete_div" >
+                    <div ng-repeat="event in events_list" class="event_ticket_div">
+                        <div class="col-xs-12 col-sm-12 event_font">{{event.name}}</div>
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="col-xs-6 col-sm-5 col-md-5 col-lg-5 event_team_font">{{event.team1}}</div>
+                            <div class="col-sm-2 event_team_font">VS</div>
+                            <div class="col-xs-6 col-sm-5 col-md-5 col-lg-5 event_team_font">{{event.team2}}</div>    
+                        </div>
+                        <div class="col-xs-12 col-sm-12 event_font">At : <a href="http://maps.google.com/?q={{event.stadium.name + '' + event.stadium.city}}">{{event.stadiumname}}</a></div>
+                        <div class="col-xs-12 col-sm-12 event_font">{{event.event_time | date:'yyyy-MMM-dd'}}</div>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+</section>

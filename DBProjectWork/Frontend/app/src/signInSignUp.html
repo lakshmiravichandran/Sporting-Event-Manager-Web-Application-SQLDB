@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>Event Results</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+
+        <!-- Font -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+        <link rel="stylesheet" href="fonts/beyond_the_mountains-webfont.css" type="text/css"/>
+
+        <!-- Stylesheets -->
+        <link href="plugin-frameworks/bootstrap.min.css" rel="stylesheet">
+        <link href="plugin-frameworks/swiper.css" rel="stylesheet">
+        <link href="fonts/ionicons.css" rel="stylesheet">
+        <link href="common/styles.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+<script>
+var app = angular.module("bookMySport", []);
+app.controller("signInController", function($scope,$http) {
+    $scope.initSignUp = function(){
+        $scope.signInUsername="";
+        $scope.signInPassword="";
+    };
+
+    $scope.signUp = async function(){
+        // if($scope.signInUsername && $scope.signInPassword && $scope.signInPassword.length >= 8){
+        //     await $http({
+        //       method: 'GET',
+        //       url: 'http://localhost:8080/login/?u='+$scope.signInUsername+'&p='+$scope.signInPassword
+        //     }).then(function successCallback(response) {
+        //         console.log("1"+response);
+        //       }, function errorCallback(response) {
+        //         // called asynchronously if an error occurs
+        //         // or server returns response with an error status.
+        //         console.log("2"+response);
+        //       });
+        // }
+        if($scope.signUpFirstName && $scope.signUpLastName && $scope.signUpEmail && $scope.signUpPhone && $scope.signUpPassword){
+            $scope.emailFormat = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
+            $scope.phoneFormat = /^[0-9]{3}[-]{0,1}[0-9]{3}[-]{0,1}[0-9]{4}$/;
+            if(!($scope.emailFormat.test($scope.signUpEmail) && $scope.phoneFormat.test($scope.signUpPhone))){
+                alert("Invailid Email or Phone Number");
+            }
+            else{
+                    await $http({
+                      method: 'GET',
+                      url: 'http://localhost:8080/signup/?f='+$scope.signUpFirstName+'&w='+$scope.signUpPassword+'&l='+$scope.signUpLastName+'&p='+$scope.signUpPhone+'&u='+$scope.signUpEmail
+                    }).then(function successCallback(response) {
+                        console.log("1"+response);
+                      }, function errorCallback(response) {
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                        console.log("2"+response);
+                      });
+            }
+        }
+        else{
+            alert('Please Enter Proper Details');
+        }
+    };
+
+    $scope.signIn = async function(){
+        if($scope.signInUsername && $scope.signInPassword && $scope.signInPassword.length >= 8){
+            await $http({
+              method: 'GET',
+              url: 'http://localhost:8080/login/?u='+$scope.signInUsername+'&p='+$scope.signInPassword
+            }).then(function successCallback(response) {
+                console.log("1"+response);
+              }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                console.log("2"+response);
+              });
+        }
+        else{
+            alert('Please Enter Proper Details');
+        }
+    };
+});
+</script>
+
+<div class="row c_cloud_div" ng-app="bookMySport" ng-controller="signInController" ng-init="initSignUp()">
+    <div class="col-sm-6" style="text-align: center;">
+        <h4>Sign In</h4>
+        <div class="c_concrete_div">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" >Username : </span>
+              </div>
+              <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="signInUsername">
+            </div>
+        </div>
+
+        <div class="c_concrete_div">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Password : &nbsp;</span>
+              </div>
+              <input type="password" class="form-control" aria-describedby="basic-addon3" ng-model="signInPassword">
+            </div>
+        </div>
+
+        <div class="c_cloud_div" style="text-align: center;">
+            <button class="appButton" ng-click="signIn()">Sign In</button>
+        </div>
+
+    </div>
+    <!-- <div style="text-align: center;" class="col-sm-1"><div class="vl"></div></div> -->
+    
+
+    <div class="col-sm-6" style="text-align: center;">
+        <h4>Sign Up</h4>
+        <div class="c_concrete_div">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">First name : </span>
+              </div>
+              <input type="text" class="form-control" ng-model="signUpFirstName" aria-describedby="basic-addon3">
+            </div>
+        </div>
+
+        <div class="c_concrete_div">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-t
+              <input type="text" class="fo
+
+        <div class="c_concrete_div">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Email : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&fbsp;&nbsp;</span>
+              </div>
+              <input type="text" class="form-control" ng-model="signUpEmail" aria-describedby="basic-addon3">
+            </div>
+        </div>
+
+        <div class="c_concrete_div">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" >Phone :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+              </div>
+              <input type="text" class="form-control"  ng-model="signUpPhone" aria-describedby="basic-addon3">
+            </div>
+        </div>
+
+        <div class="c_concrete_div">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" >Password : &nbsp;</span>
+              </div>
+              <input type="password" class="form-control" ng-model="signUpPassword" aria-describedby="basic-addon3">
+            </div>
+        </div>
+
+        <div class="c_cloud_div" style="text-align: center;">
+            <button class="appButton" ng-click="signUp()">Sign Up</button>
+        </div>
+
+    </div>
+
+
+</div>
+
+<!-- SCIPTS -->
+<script src="plugin-frameworks/jquery-3.2.1.min.js"></script>
+<script src="plugin-frameworks/bootstrap.min.js"></script>
+<script src="plugin-frameworks/swiper.js"></script>
+<script src="common/scripts.js"></script>
+</body>
+</html>
+

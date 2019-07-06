@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sport Tickets - BookMySport</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <!-- Font -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+        <link rel="stylesheet" href="fonts/beyond_the_mountains-webfont.css" type="text/css"/>
+
+        <!-- Stylesheets -->
+        <link href="plugin-frameworks/bootstrap.min.css" rel="stylesheet">
+        <link href="plugin-frameworks/swiper.css" rel="stylesheet">
+        <link href="fonts/ionicons.css" rel="stylesheet">
+        <link href="common/styles.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body ng-app="bookMySport" ng-controller="cityMapsController" id="myApp" ng-init="initCityMap">
+    <div id="map"></div>
+    <script>
+        var app = angular.module("bookMySport", []);
+        app.controller("cityMapsController", function($scope,$http,$location) {
+          $scope.initCityMap = async function(cityName){
+            await $http({
+              method: 'GET',
+              url: 'http://localhost:8080/cityMap?q='+cityName
+            }).then(function successCallback(response) {
+                $scope.stadiums = response.data;
+              }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                alert("Oops something went wrong! Please come back later!");
+                console.log(response);
+              });  
+          };
+
+          $scope.goToPage = function(lat,lng){
+            console.log(lat);
+            console.log(lng);
+            var path = 'http://localhost:8000/#!/events/lat/'+ parseFloat(lat)*10000+"/lng/"+parseFloat(lng)*10000;
+            console.log(path);
+            $location.path(path);
+          };
+
+        });
+
+        function httpGetCall(data){
+            alert(data);
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open('GET', "http://localhost:8000/", true);
+            xmlHttp.send();
+            // return xmlHttp.responseText;
+        }
+
+      async function initMap() {
+        var e = document.getElementById('myApp');     
+        var $scope = angular.element(e).scope();
+        // https://cdn2.iconfinder.com/data/icons/iconslandgps/PNG/256x256/Places/Stadium.png
+        var cityName=window.location.search.substr(1) || "Pittsburgh";
+        await $scope.initCityMap(cityName);
+        var image = {
+          url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          // This marker is 20 pixels wide by 32 pixels high.
+          size: new google.maps.Size(20, 32),
+          // The origin for this image is (0, 0).
+          origin: new google.maps.Point(0, 0),
+          // The anchor for this image is the base of the flagpole at (0, 32).
+          anchor: new google.maps.Point(0, 32)
+        };
+
+        var shape = {
+          coords: [1, 1, 1, 20, 18, 20, 18, 1],
+          type: 'poly'
+        };
+
+
+        // var ppgPaintsArena = {lat: 40.4396, lng: -79.9893};
+        // var heinzField = {lat: 40.4468, lng: -80.0158};
+        // var pncPark = {lat: 40.4469, lng: -80.0057};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 13,
+          center: $scope.stadiums[0].coordinates
+        });
+
+        var i;
+        var markers = new Array($scope.stadiums.length);
+        for(i=0; i < $scope.stadiums.length; i++){
+            markers[i]=new google.maps.Marker({position:$scope.stadiums[i].coordinates, map:map, title:$scope.stadiums[i].name});
+            var stadiumName=$scope.stadiums[i].name;
+            markers[i].addListener('click', function(data) {
+              var coordinates = (JSON.parse(JSON.stringify(data.latLng)));
+              //$scope.goToPage(coordinates.lat.toFixed(4),coordinates.lng.toFixed(4));
+              window.location.href = 'http://localhost:8000/#!/events/lat/'+ parseFloat(coordinates.lat.toFixed(4))+"/lng/"+parseFloat(coordinates.lng.toFixed(4));
+            });
+        }
+
+        map.addListener('center_changed', function() {
+          // 3 seconds after the center of the map has changed, pan back to the
+          // marker.
+          window.setTimeout(function() {
+            map.panTo(marker.getPosition());
+          }, 3000);
+        });
+      }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjynqLTc7ccXTPvUicgr5CH0Li3hOgmvs&callback=initMap">
+    </script>
+  </body>
+</html>
